@@ -5,6 +5,7 @@ import org.wcci.library.model.Campus;
 import org.wcci.library.storage.CampusStorage;
 
 import java.util.Collection;
+
 @RequestMapping("/api/campuses")
 public class CampusControllerImpl implements CampusController {
     private final CampusStorage campusStorage;

@@ -5,6 +5,7 @@ import org.wcci.library.model.Book;
 import org.wcci.library.storage.BookStorage;
 
 import java.util.Collection;
+
 @RequestMapping("/api/books")
 public class BookControllerImpl implements BookController {
     private final BookStorage bookStorage;
