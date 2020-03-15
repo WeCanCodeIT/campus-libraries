@@ -4,10 +4,6 @@ import org.wcci.library.model.Author;
 
 import java.util.Collection;
 
-public interface AuthorStorage {
-    void store(Author author);
+public interface AuthorStorage extends Storage<Author>{
 
-    Collection<Author> fetchAll();
-
-    Author fetchById(long id);
 }
