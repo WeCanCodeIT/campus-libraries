@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.wcci.library.model.Book;
 
 import java.util.Collection;
+@RestController
+public interface ApiController<T> {
+    @RequestMapping("/")
+    Collection<Book> retrieveAll();
 
-public interface BookController extends ApiController<Book>{
+    @RequestMapping("/{id}")
+    Book retrieveById(@PathVariable Long id);
 }
