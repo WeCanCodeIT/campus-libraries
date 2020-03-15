@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface Storage<T> {
     void store(T item);
 
-    Collection<Author> fetchAll();
+    Collection<T> fetchAll();
 
     T fetchById(long id);
 }
