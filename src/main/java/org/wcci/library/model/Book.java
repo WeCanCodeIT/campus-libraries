@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 @Entity
 public class Book {
     @Id
@@ -16,7 +17,8 @@ public class Book {
     @ManyToMany
     private Set<Author> authors;
 
-    protected Book(){}
+    protected Book() {
+    }
 
     public Book(String title, Campus campus, Author... authors) {
         this.title = title;

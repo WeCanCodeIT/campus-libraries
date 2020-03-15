@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 public class BookStorageTest {
 
@@ -29,21 +28,22 @@ public class BookStorageTest {
     }
 
     @Test
-    public void shouldSaveAuthor(){
+    public void shouldSaveAuthor() {
         underTest.store(testBook);
         verify(bookRepo).save(testBook);
     }
+
     @Test
-    public void shouldReturnAllAuthors(){
+    public void shouldReturnAllAuthors() {
         when(bookRepo.findAll()).thenReturn(Collections.singletonList(testBook));
         Collection<Book> result = underTest.fetchAll();
         assertThat(result).containsOnly(testBook);
     }
+
     @Test
-    public void shouldReturnASpecificAuthor(){
+    public void shouldReturnASpecificAuthor() {
         when(bookRepo.findById(1L)).thenReturn(Optional.of(testBook));
         Book result = underTest.fetchById(1L);
         assertThat(result).isEqualTo(testBook);
     }
-
 }

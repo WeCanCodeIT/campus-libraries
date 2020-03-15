@@ -12,8 +12,6 @@ import org.wcci.library.storage.repositories.AuthorRepository;
 import org.wcci.library.storage.repositories.BookRepository;
 import org.wcci.library.storage.repositories.CampusRepository;
 
-import java.util.Properties;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -41,7 +39,7 @@ public class JpaWiringTest {
     void setUp() {
         testCampus = new Campus("Clintonville");
         testAuthor1 = new Author("Testy", "McTester");
-        testAuthor2= new Author("Testa","Exama" );
+        testAuthor2 = new Author("Testa", "Exama");
         testBook1 = new Book("Testing Stuff", testCampus, testAuthor1);
         testBook2 = new Book("Testing Stuff, Again", testCampus, testAuthor1, testAuthor2);
         campusRepo.save(testCampus);
@@ -53,15 +51,16 @@ public class JpaWiringTest {
     }
 
     @Test
-    public void campusShouldHaveBooks(){
+    public void campusShouldHaveBooks() {
         Campus retrievedCampus = campusRepo.findById(testCampus.getId()).get();
         assertThat(retrievedCampus.getBooks()).contains(testBook1, testBook2);
     }
+
     @Test
-    public void BooksAndAuthorsHaveAManyToManyRelationship(){
+    public void BooksAndAuthorsHaveAManyToManyRelationship() {
         Author retrievedAuthor1 = authorRepo.findById(testAuthor1.getId()).get();
         Author retrievedAuthor2 = authorRepo.findById(testAuthor2.getId()).get();
-        assertThat(retrievedAuthor1.getBooks()).contains(testBook1,testBook2);
+        assertThat(retrievedAuthor1.getBooks()).contains(testBook1, testBook2);
         assertThat(retrievedAuthor2.getBooks()).contains(testBook2);
 
     }

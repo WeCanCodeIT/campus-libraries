@@ -17,7 +17,8 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 
-    protected Author(){}
+    protected Author() {
+    }
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;

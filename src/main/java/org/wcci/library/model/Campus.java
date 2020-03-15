@@ -15,7 +15,9 @@ public class Campus {
     private String location;
     @OneToMany(mappedBy = "campus")
     private Set<Book> books;
-    protected Campus(){}
+
+    protected Campus() {
+    }
 
     public Campus(String location) {
         this.location = location;

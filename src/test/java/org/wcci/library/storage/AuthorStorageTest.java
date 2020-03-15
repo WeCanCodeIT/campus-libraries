@@ -26,18 +26,20 @@ public class AuthorStorageTest {
     }
 
     @Test
-    public void shouldSaveAuthor(){
+    public void shouldSaveAuthor() {
         underTest.store(testAuthor);
         verify(authorRepo).save(testAuthor);
     }
+
     @Test
-    public void shouldReturnAllAuthors(){
+    public void shouldReturnAllAuthors() {
         when(authorRepo.findAll()).thenReturn(Collections.singletonList(testAuthor));
         Collection<Author> result = underTest.fetchAll();
         assertThat(result).containsOnly(testAuthor);
     }
+
     @Test
-    public void shouldReturnASpecificAuthor(){
+    public void shouldReturnASpecificAuthor() {
         when(authorRepo.findById(1L)).thenReturn(Optional.of(testAuthor));
         Author result = underTest.fetchById(1L);
         assertThat(result).isEqualTo(testAuthor);
