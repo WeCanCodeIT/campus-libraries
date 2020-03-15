@@ -1,5 +1,7 @@
 package org.wcci.library.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,8 +14,10 @@ public class Book {
     @GeneratedValue
     private Long id;
     private String title;
+    @JsonManagedReference
     @ManyToOne
     private Campus campus;
+    @JsonManagedReference
     @ManyToMany
     private Set<Author> authors;
 

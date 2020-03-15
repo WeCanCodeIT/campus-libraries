@@ -1,10 +1,11 @@
 package org.wcci.library.storage;
 
+import org.springframework.stereotype.Service;
 import org.wcci.library.model.Author;
 import org.wcci.library.storage.repositories.AuthorRepository;
 
 import java.util.Collection;
-
+@Service
 public class AuthorStorageJpaImpl implements AuthorStorage {
     private final AuthorRepository authorRepo;
 
