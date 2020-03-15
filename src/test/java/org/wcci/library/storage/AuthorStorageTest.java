@@ -8,6 +8,7 @@ import org.wcci.library.storage.repositories.AuthorRepository;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -32,9 +33,15 @@ public class AuthorStorageTest {
     }
     @Test
     public void shouldReturnAllAuthors(){
-        when(authorRepo.findAll()).thenReturn(Collections.EMPTY_LIST);
+        when(authorRepo.findAll()).thenReturn(Collections.singletonList(testAuthor));
         Collection<Author> result = underTest.fetchAll();
-        assertThat(result).isEmpty();
+        assertThat(result).containsOnly(testAuthor);
+    }
+    @Test
+    public void shoudReturnASpecificAuthor(){
+        when(authorRepo.findById(1L)).thenReturn(Optional.of(testAuthor));
+        Author result = underTest.fetchById(1L);
+        assertThat(result).isEqualTo(testAuthor);
     }
 
 }

@@ -20,4 +20,8 @@ public class AuthorStorage {
     public Collection<Author> fetchAll() {
         return (Collection<Author>) authorRepo.findAll();
     }
+
+    public Author fetchById(long id) {
+        return authorRepo.findById(id).get();
+    }
 }
