@@ -9,8 +9,8 @@ import java.util.Collection;
 @RestController
 public interface ApiController<T> {
     @RequestMapping("/")
-    Collection<Book> retrieveAll();
+    Collection<T> retrieveAll();
 
     @RequestMapping("/{id}")
-    Book retrieveById(@PathVariable Long id);
+    T retrieveById(@PathVariable Long id);
 }
