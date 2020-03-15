@@ -2,7 +2,6 @@ package org.wcci.library.storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.wcci.library.model.Author;
 import org.wcci.library.storage.repositories.AuthorRepository;
 
@@ -22,7 +21,7 @@ public class AuthorStorageTest {
     @BeforeEach
     void setUp() {
         authorRepo = mock(AuthorRepository.class);
-        underTest = new AuthorStorage(authorRepo);
+        underTest = new AuthorStorageJpaImpl(authorRepo);
         testAuthor = new Author("Tester", "O'Tested");
     }
 
@@ -38,7 +37,7 @@ public class AuthorStorageTest {
         assertThat(result).containsOnly(testAuthor);
     }
     @Test
-    public void shoudReturnASpecificAuthor(){
+    public void shouldReturnASpecificAuthor(){
         when(authorRepo.findById(1L)).thenReturn(Optional.of(testAuthor));
         Author result = underTest.fetchById(1L);
         assertThat(result).isEqualTo(testAuthor);
