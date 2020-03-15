@@ -5,6 +5,7 @@ import org.wcci.library.model.Campus;
 import org.wcci.library.storage.repositories.CampusRepository;
 
 import java.util.Collection;
+
 @Service
 public class CampusStorageJpaImpl implements CampusStorage {
     private final CampusRepository campusRepository;

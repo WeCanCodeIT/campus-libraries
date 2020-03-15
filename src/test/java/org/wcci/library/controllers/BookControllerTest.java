@@ -35,7 +35,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void shouldReturnAllBooks(){
+    public void shouldReturnAllBooks() {
         when(bookStorage.fetchAll()).thenReturn(Collections.singletonList(testBook));
         Collection<Book> result = underTest.retrieveAll();
         assertThat(result).containsOnly(testBook);
@@ -53,12 +53,14 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$[0].campus.location", is("Test Town")));
 
     }
+
     @Test
-    public void shouldReturnASpecificBook(){
+    public void shouldReturnASpecificBook() {
         when(bookStorage.fetchById(1L)).thenReturn(testBook);
         Book result = underTest.retrieveById(1L);
         assertThat(result).isEqualTo(testBook);
     }
+
     @Test
     public void fetchByIdEndpointReturnASpecificBook() throws Exception {
         when(bookStorage.fetchById(1L)).thenReturn(testBook);

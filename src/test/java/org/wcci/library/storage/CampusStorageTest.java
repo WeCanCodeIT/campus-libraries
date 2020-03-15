@@ -2,9 +2,7 @@ package org.wcci.library.storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.wcci.library.model.Author;
 import org.wcci.library.model.Campus;
-import org.wcci.library.storage.repositories.AuthorRepository;
 import org.wcci.library.storage.repositories.CampusRepository;
 
 import java.util.Collection;
@@ -13,7 +11,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 public class CampusStorageTest {
 

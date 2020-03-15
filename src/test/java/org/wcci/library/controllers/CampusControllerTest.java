@@ -18,7 +18,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public class CampusControllerTest {
 
@@ -34,7 +33,7 @@ public class CampusControllerTest {
     }
 
     @Test
-    public void shouldReturnAllCampuses(){
+    public void shouldReturnAllCampuses() {
         when(campusStorage.fetchAll()).thenReturn(Collections.singletonList(testCampus));
         Collection<Campus> result = underTest.retrieveAll();
         assertThat(result).containsOnly(testCampus);
@@ -51,12 +50,14 @@ public class CampusControllerTest {
                 .andExpect(jsonPath("$[0].location", is("Test Town")));
 
     }
+
     @Test
-    public void retrieveByIdShouldReturnASpecificCampusById(){
+    public void retrieveByIdShouldReturnASpecificCampusById() {
         when(campusStorage.fetchById(1L)).thenReturn(testCampus);
         Campus result = underTest.retrieveById(1L);
         assertThat(result).isEqualTo(testCampus);
     }
+
     @Test
     public void fetchByIdEndpointReturnASpecificBook() throws Exception {
         when(campusStorage.fetchById(1L)).thenReturn(testCampus);

@@ -56,6 +56,7 @@ public class AuthorControllerTest {
         when(authorStorage.fetchById(1L)).thenReturn(testAuthor);
         assertThat(underTest.retrieveById(1L)).isEqualTo(testAuthor);
     }
+
     @Test
     public void retrieveByIdEndpointFetchesAuthorById() throws Exception {
         when(authorStorage.fetchById(1L)).thenReturn(testAuthor);
