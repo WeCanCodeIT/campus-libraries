@@ -1,6 +1,7 @@
 package org.wcci.library.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ public class Author {
     private Long id;
     private String firstName;
     private String lastName;
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 

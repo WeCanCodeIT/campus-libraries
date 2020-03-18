@@ -1,5 +1,7 @@
 package org.wcci.library.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -7,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.wcci.library.model.Author;
+import org.wcci.library.model.Campus;
 import org.wcci.library.storage.AuthorStorage;
 
 import java.util.Collection;
@@ -17,6 +20,8 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class AuthorControllerTest {
@@ -65,5 +70,30 @@ public class AuthorControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.firstName", is("Joe")))
                 .andExpect(jsonPath("$.lastName", is("Testa")));
+    }
+    @Test
+    public void addShouldAddTheGivenCampusToTheApi(){
+        Author newAuthor = new Author("Tester","Testy");
+        when(authorStorage.store(newAuthor)).thenReturn(newAuthor);
+        Author addedCampus = underTest.add(newAuthor);
+        assertThat(addedCampus).isEqualTo(newAuthor);
+    }
+    @Test
+    public void addEndpointReturnsTheNewAuthor() throws Exception {
+        Author newAuthor = new Author("Tester", "Testy");
+        when(authorStorage.store(newAuthor)).thenReturn(newAuthor);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String campusJson = mapper.writeValueAsString(newAuthor);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
+        mockMvc.perform(post("/api/authors/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("utf-8")
+                .content(campusJson))
+               .andDo(print())
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.firstName", is("Tester")))
+               .andExpect(jsonPath("$.lastName", is("Testy")));
     }
 }

@@ -1,5 +1,6 @@
 package org.wcci.library.controllers;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wcci.library.model.Campus;
@@ -24,5 +25,10 @@ public class CampusControllerImpl implements CampusController {
     @Override
     public Campus retrieveById(Long id) {
         return campusStorage.fetchById(id);
+    }
+
+    @Override
+    public Campus add(@RequestBody Campus element) {
+        return campusStorage.store(element);
     }
 }

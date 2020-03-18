@@ -1,5 +1,7 @@
 package org.wcci.library.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -17,6 +19,8 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class CampusControllerTest {
@@ -66,6 +70,29 @@ public class CampusControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.location", is("Test Town")));
-
+    }
+    @Test
+    public void addShouldAddTheGivenCampusToTheApi(){
+        Campus newCampus = new Campus("Testerville");
+        when(campusStorage.store(newCampus)).thenReturn(newCampus);
+        Campus addedCampus = underTest.add(newCampus);
+        assertThat(addedCampus).isEqualTo(newCampus);
+    }
+    @Test
+    public void addEndpointReturnsTheNewCampus() throws Exception {
+        Campus newCampus = new Campus("Testerville");
+        when(campusStorage.store(newCampus)).thenReturn(newCampus);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String campusJson = mapper.writeValueAsString(newCampus);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
+        mockMvc.perform(post("/api/campuses/")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .characterEncoding("utf-8")
+                            .content(campusJson))
+               .andDo(print())
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.location", is("Testerville")));
     }
 }

@@ -2,6 +2,7 @@ package org.wcci.library.storage;
 
 import org.springframework.stereotype.Service;
 import org.wcci.library.model.Book;
+import org.wcci.library.model.Campus;
 import org.wcci.library.storage.repositories.BookRepository;
 
 import java.util.Collection;
@@ -15,8 +16,9 @@ public class BookStorageJpaImpl implements BookStorage {
     }
 
     @Override
-    public void store(Book item) {
+    public Book store(Book item) {
         bookRepository.save(item);
+        return null;
     }
 
     @Override
