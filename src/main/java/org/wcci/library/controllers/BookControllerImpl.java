@@ -1,5 +1,6 @@
 package org.wcci.library.controllers;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wcci.library.model.Book;
@@ -27,8 +28,7 @@ public class BookControllerImpl implements BookController {
     }
 
     @Override
-    public Book createNew(Book newResource) {
-
-        return null;
+    public Book add(@RequestBody Book element) {
+        return bookStorage.store(element);
     }
 }

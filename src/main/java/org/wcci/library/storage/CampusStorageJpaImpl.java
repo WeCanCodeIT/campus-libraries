@@ -15,8 +15,8 @@ public class CampusStorageJpaImpl implements CampusStorage {
     }
 
     @Override
-    public void store(Campus item) {
-        campusRepository.save(item);
+    public Campus store(Campus item) {
+        return campusRepository.save(item);
     }
 
     @Override

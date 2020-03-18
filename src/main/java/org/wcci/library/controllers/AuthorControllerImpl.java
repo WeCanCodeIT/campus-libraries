@@ -28,9 +28,7 @@ public class AuthorControllerImpl implements AuthorController {
     }
 
     @Override
-    public Author createNew(@RequestBody Author newResource) {
-        authorStorage.store(newResource);
-        return newResource;
+    public Author add(@RequestBody Author element) {
+        return authorStorage.store(element);
     }
-
 }

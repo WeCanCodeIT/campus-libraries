@@ -1,6 +1,7 @@
 package org.wcci.library.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ public class Campus {
     @GeneratedValue
     private Long id;
     private String location;
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "campus")
     private Set<Book> books;
 

@@ -13,7 +13,6 @@ public interface ApiController<T> {
 
     @GetMapping("/{id}")
     T retrieveById(@PathVariable Long id);
-
     @PostMapping("/")
-    T createNew(T newResource);
+    T add(T element);
 }

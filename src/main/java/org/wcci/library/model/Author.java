@@ -1,5 +1,6 @@
 package org.wcci.library.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
