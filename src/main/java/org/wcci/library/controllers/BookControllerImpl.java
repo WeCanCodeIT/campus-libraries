@@ -25,4 +25,10 @@ public class BookControllerImpl implements BookController {
     public Book retrieveById(Long id) {
         return bookStorage.fetchById(id);
     }
+
+    @Override
+    public Book createNew(Book newResource) {
+
+        return null;
+    }
 }

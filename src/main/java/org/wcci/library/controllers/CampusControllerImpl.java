@@ -25,4 +25,10 @@ public class CampusControllerImpl implements CampusController {
     public Campus retrieveById(Long id) {
         return campusStorage.fetchById(id);
     }
+
+    @Override
+    public Campus createNew(Campus newResource) {
+
+        return null;
+    }
 }

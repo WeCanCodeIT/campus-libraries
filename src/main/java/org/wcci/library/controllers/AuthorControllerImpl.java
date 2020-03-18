@@ -1,5 +1,6 @@
 package org.wcci.library.controllers;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wcci.library.model.Author;
@@ -25,4 +26,11 @@ public class AuthorControllerImpl implements AuthorController {
     public Author retrieveById(Long id) {
         return authorStorage.fetchById(id);
     }
+
+    @Override
+    public Author createNew(@RequestBody Author newResource) {
+        authorStorage.store(newResource);
+        return newResource;
+    }
+
 }
