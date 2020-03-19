@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -29,6 +30,7 @@ public class AuthorControllerTest {
     private AuthorController underTest;
     private Author testAuthor;
     private MockMvc mockMvc;
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
@@ -36,6 +38,8 @@ public class AuthorControllerTest {
         underTest = new AuthorControllerImpl(authorStorage);
         testAuthor = new Author("Joe", "Testa");
         mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
+        objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     @Test
@@ -48,7 +52,7 @@ public class AuthorControllerTest {
     @Test
     public void retrieveAllEndPointReturnsAllAuthors() throws Exception {
         when(authorStorage.fetchAll()).thenReturn(Collections.singletonList(testAuthor));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/"))
+        mockMvc.perform(get("/api/authors/"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -65,7 +69,7 @@ public class AuthorControllerTest {
     @Test
     public void retrieveByIdEndpointFetchesAuthorById() throws Exception {
         when(authorStorage.fetchById(1L)).thenReturn(testAuthor);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/1"))
+        mockMvc.perform(get("/api/authors/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.firstName", is("Joe")))
