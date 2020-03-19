@@ -16,7 +16,7 @@ public class Campus {
     @GeneratedValue
     private Long id;
     private String location;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "campus")
     private Set<Book> books;
 

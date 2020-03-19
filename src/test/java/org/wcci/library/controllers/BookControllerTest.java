@@ -18,8 +18,7 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -55,8 +54,7 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", is("Testing In Spring")))
-                .andExpect(jsonPath("$[0].campus.location", is("Test Town")));
+                .andExpect(jsonPath("$[0].title", is("Testing In Spring")));
     }
 
     @Test
@@ -72,8 +70,7 @@ public class BookControllerTest {
         mockMvc.perform(get("/api/books/1"))
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$.title", is("Testing In Spring")))
-               .andExpect(jsonPath("$.campus.location", is("Test Town")));
+               .andExpect(jsonPath("$.title", is("Testing In Spring")));
     }
 
     @Test
@@ -93,7 +90,6 @@ public class BookControllerTest {
         when(bookStorage.store(bookToAdd)).thenReturn(bookToAdd);
         ObjectMapper mapper = new ObjectMapper();
         String bookJson = mapper.writeValueAsString(bookToAdd);
-        System.out.println(bookJson);
         mockMvc.perform(post("/api/books/")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(bookJson)
@@ -102,7 +98,11 @@ public class BookControllerTest {
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                .andExpect(jsonPath("$.title", is("On Testing")))
-               .andExpect(jsonPath("$.authors[0].firstName", is("Testy")))
-               .andExpect(jsonPath("$.campus.location", is("Test Town")));
+               .andExpect(jsonPath("$.authors[0].firstName", is("Testy")));
+    }
+    @Test
+    public void removeShouldRemoveBookFromApi(){
+        underTest.remove(1L);
+        verify(bookStorage).delete(1L);
     }
 }

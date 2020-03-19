@@ -2,7 +2,6 @@ package org.wcci.library.storage;
 
 import org.springframework.stereotype.Service;
 import org.wcci.library.model.Book;
-import org.wcci.library.model.Campus;
 import org.wcci.library.storage.repositories.BookRepository;
 
 import java.util.Collection;
@@ -29,5 +28,11 @@ public class BookStorageJpaImpl implements BookStorage {
     @Override
     public Book fetchById(long id) {
         return bookRepository.findById(id).get();
+    }
+
+    @Override
+    public Collection<Book> delete(Long id) {
+        bookRepository.delete(fetchById(id));
+        return fetchAll();
     }
 }

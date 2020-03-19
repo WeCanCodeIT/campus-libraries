@@ -31,4 +31,10 @@ public class BookControllerImpl implements BookController {
     public Book add(@RequestBody Book element) {
         return bookStorage.store(element);
     }
+
+    @Override
+    public Collection<Book> remove(Long id) {
+        bookStorage.delete(id);
+        return bookStorage.fetchAll();
+    }
 }

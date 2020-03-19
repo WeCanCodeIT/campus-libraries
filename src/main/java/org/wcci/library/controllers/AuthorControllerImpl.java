@@ -31,4 +31,9 @@ public class AuthorControllerImpl implements AuthorController {
     public Author add(@RequestBody Author element) {
         return authorStorage.store(element);
     }
+
+    @Override
+    public Collection<Author> remove(Long id) {
+        return null;
+    }
 }

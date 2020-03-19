@@ -8,4 +8,6 @@ public interface Storage<T> {
     Collection<T> fetchAll();
 
     T fetchById(long id);
+
+    Collection<T> delete(Long id);
 }

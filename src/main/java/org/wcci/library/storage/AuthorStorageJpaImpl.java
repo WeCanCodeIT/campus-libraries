@@ -2,7 +2,6 @@ package org.wcci.library.storage;
 
 import org.springframework.stereotype.Service;
 import org.wcci.library.model.Author;
-import org.wcci.library.model.Campus;
 import org.wcci.library.storage.repositories.AuthorRepository;
 
 import java.util.Collection;
@@ -29,5 +28,10 @@ public class AuthorStorageJpaImpl implements AuthorStorage {
     @Override
     public Author fetchById(long id) {
         return authorRepo.findById(id).get();
+    }
+
+    @Override
+    public Collection<Author> delete(Long id) {
+        return null;
     }
 }

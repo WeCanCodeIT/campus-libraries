@@ -31,4 +31,9 @@ public class CampusControllerImpl implements CampusController {
     public Campus add(@RequestBody Campus element) {
         return campusStorage.store(element);
     }
+
+    @Override
+    public Collection<Campus> remove(Long id) {
+        return null;
+    }
 }

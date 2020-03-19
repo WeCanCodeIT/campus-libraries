@@ -28,4 +28,9 @@ public class CampusStorageJpaImpl implements CampusStorage {
     public Campus fetchById(long id) {
         return campusRepository.findById(id).get();
     }
+
+    @Override
+    public Collection<Campus> delete(Long id) {
+        return null;
+    }
 }

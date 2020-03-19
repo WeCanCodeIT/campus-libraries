@@ -1,5 +1,6 @@
 package org.wcci.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Book {
     @GeneratedValue
     private Long id;
     private String title;
+    @JsonIgnore
     @ManyToOne
     private Campus campus;
     @ManyToMany
