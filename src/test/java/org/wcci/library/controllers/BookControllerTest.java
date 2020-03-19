@@ -19,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -103,6 +102,12 @@ public class BookControllerTest {
     @Test
     public void removeShouldRemoveBookFromApi(){
         underTest.remove(1L);
+        verify(bookStorage).delete(1L);
+    }
+    @Test
+    public void removeEndpointIsWiredUp() throws Exception {
+        mockMvc.perform(delete("/api/books/1/"))
+               .andExpect(status().isOk());
         verify(bookStorage).delete(1L);
     }
 }

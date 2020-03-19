@@ -18,6 +18,6 @@ public interface ApiController<T> {
     @PostMapping("/")
     T add(T element);
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/")
     Collection<T> remove(@PathVariable Long id);
 }
