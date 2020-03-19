@@ -87,7 +87,7 @@ public class BookControllerTest {
         Campus testCampus = new Campus("Test Town");
         Author testAuthor = new Author("Testy", "Exammer");
         Book bookToAdd = new Book("On Testing", testCampus, testAuthor);
-        when(bookStorage.store(bookToAdd)).thenReturn(bookToAdd);
+        when(bookStorage.store(any(Book.class))).thenReturn(bookToAdd);
         ObjectMapper mapper = new ObjectMapper();
         String bookJson = mapper.writeValueAsString(bookToAdd);
         mockMvc.perform(post("/api/books/")
