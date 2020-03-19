@@ -6,10 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.wcci.library.model.Author;
-import org.wcci.library.model.Campus;
 import org.wcci.library.storage.AuthorStorage;
 
 import java.util.Collection;
@@ -53,11 +51,11 @@ public class AuthorControllerTest {
     public void retrieveAllEndPointReturnsAllAuthors() throws Exception {
         when(authorStorage.fetchAll()).thenReturn(Collections.singletonList(testAuthor));
         mockMvc.perform(get("/api/authors/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].firstName", is("Joe")))
-                .andExpect(jsonPath("$[0].lastName", is("Testa")));
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$", hasSize(1)))
+               .andExpect(jsonPath("$[0].firstName", is("Joe")))
+               .andExpect(jsonPath("$[0].lastName", is("Testa")));
     }
 
     @Test
@@ -70,18 +68,20 @@ public class AuthorControllerTest {
     public void retrieveByIdEndpointFetchesAuthorById() throws Exception {
         when(authorStorage.fetchById(1L)).thenReturn(testAuthor);
         mockMvc.perform(get("/api/authors/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.firstName", is("Joe")))
-                .andExpect(jsonPath("$.lastName", is("Testa")));
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.firstName", is("Joe")))
+               .andExpect(jsonPath("$.lastName", is("Testa")));
     }
+
     @Test
-    public void addShouldAddTheGivenCampusToTheApi(){
-        Author newAuthor = new Author("Tester","Testy");
+    public void addShouldAddTheGivenCampusToTheApi() {
+        Author newAuthor = new Author("Tester", "Testy");
         when(authorStorage.store(newAuthor)).thenReturn(newAuthor);
         Author addedCampus = underTest.add(newAuthor);
         assertThat(addedCampus).isEqualTo(newAuthor);
     }
+
     @Test
     public void addEndpointReturnsTheNewAuthor() throws Exception {
         Author newAuthor = new Author("Tester", "Testy");

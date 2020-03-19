@@ -22,7 +22,7 @@ public class ApplicationTest {
     @Test
     public void retrieveByIdEndpointFetchesAuthorById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/authors/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }

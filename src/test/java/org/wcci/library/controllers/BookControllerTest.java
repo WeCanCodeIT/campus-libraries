@@ -1,6 +1,5 @@
 package org.wcci.library.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,10 +49,10 @@ public class BookControllerTest {
     public void fetchAllEndpointReturnsAllBooks() throws Exception {
         when(bookStorage.fetchAll()).thenReturn(Collections.singletonList(testBook));
         mockMvc.perform(get("/api/books/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", is("Testing In Spring")));
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$", hasSize(1)))
+               .andExpect(jsonPath("$[0].title", is("Testing In Spring")));
     }
 
     @Test
@@ -73,7 +72,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void addWillAddBookToApi(){
+    public void addWillAddBookToApi() {
         Campus testCampus = new Campus("Test Town");
         Author testAuthor = new Author("Testy", "Exammer");
         Book bookToAdd = new Book("On Testing", testCampus, testAuthor);
@@ -81,6 +80,7 @@ public class BookControllerTest {
         Book addedBook = underTest.add(bookToAdd);
         assertThat(addedBook).isEqualTo(bookToAdd);
     }
+
     @Test
     public void addEndPointWillReturnNewlyAddedBook() throws Exception {
         Campus testCampus = new Campus("Test Town");
@@ -90,20 +90,22 @@ public class BookControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String bookJson = mapper.writeValueAsString(bookToAdd);
         mockMvc.perform(post("/api/books/")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(bookJson)
-                            .characterEncoding("utf-8"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bookJson)
+                .characterEncoding("utf-8"))
                .andDo(print())
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                .andExpect(jsonPath("$.title", is("On Testing")))
                .andExpect(jsonPath("$.authors[0].firstName", is("Testy")));
     }
+
     @Test
-    public void removeShouldRemoveBookFromApi(){
+    public void removeShouldRemoveBookFromApi() {
         underTest.remove(1L);
         verify(bookStorage).delete(1L);
     }
+
     @Test
     public void removeEndpointIsWiredUp() throws Exception {
         mockMvc.perform(delete("/api/books/1/"))

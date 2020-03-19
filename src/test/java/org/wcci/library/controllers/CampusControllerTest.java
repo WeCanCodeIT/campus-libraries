@@ -48,10 +48,10 @@ public class CampusControllerTest {
         when(campusStorage.fetchAll()).thenReturn(Collections.singletonList(testCampus));
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
         mockMvc.perform(get("/api/campuses/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].location", is("Test Town")));
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$", hasSize(1)))
+               .andExpect(jsonPath("$[0].location", is("Test Town")));
 
     }
 
@@ -67,17 +67,19 @@ public class CampusControllerTest {
         when(campusStorage.fetchById(1L)).thenReturn(testCampus);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
         mockMvc.perform(get("/api/campuses/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.location", is("Test Town")));
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.location", is("Test Town")));
     }
+
     @Test
-    public void addShouldAddTheGivenCampusToTheApi(){
+    public void addShouldAddTheGivenCampusToTheApi() {
         Campus newCampus = new Campus("Testerville");
         when(campusStorage.store(newCampus)).thenReturn(newCampus);
         Campus addedCampus = underTest.add(newCampus);
         assertThat(addedCampus).isEqualTo(newCampus);
     }
+
     @Test
     public void addEndpointReturnsTheNewCampus() throws Exception {
         Campus newCampus = new Campus("Testerville");
@@ -87,9 +89,9 @@ public class CampusControllerTest {
         String campusJson = mapper.writeValueAsString(newCampus);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
         mockMvc.perform(post("/api/campuses/")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .characterEncoding("utf-8")
-                            .content(campusJson))
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("utf-8")
+                .content(campusJson))
                .andDo(print())
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
