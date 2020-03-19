@@ -4,6 +4,10 @@ class DomMaker {
         this.htmlElement = document.createElement(elementType);
     }
 
+    addClassName(className) {
+        this.htmlElement.classList.add(className);
+        return this;
+    }
     appendChild(element) {
         this.htmlElement.append(element);
         return this;

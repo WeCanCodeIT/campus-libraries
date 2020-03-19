@@ -1,4 +1,9 @@
-import {DomMaker} from './DomMaker.js'
+import {
+    DomMaker
+} from './DomMaker.js'
+import {
+    createNewBookForm
+} from './NewBookFormComponent.js'
 
 fetch("http://localhost:8080/api/campuses/")
     .then(response => response.json())
@@ -34,7 +39,8 @@ const renderCampus = (campus) => {
     });
     const campusElement =
         new DomMaker('div')
-            .changeContent(campus.location)
-            .appendChild(bookList.render());
+        .changeContent(campus.location)
+        .appendChild(bookList.render())
+        .appendChild(createNewBookForm());
     anchor.appendChild(campusElement.render())
 }
