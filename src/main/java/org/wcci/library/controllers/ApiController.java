@@ -12,7 +12,7 @@ public interface ApiController<T> {
     @GetMapping("/")
     Collection<T> retrieveAll();
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/")
     T retrieveById(@PathVariable Long id);
 
     @PostMapping("/")

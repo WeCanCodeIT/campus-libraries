@@ -1,9 +1,8 @@
 package org.wcci.library.controllers;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.wcci.library.model.Book;
+import org.wcci.library.model.Campus;
 import org.wcci.library.storage.BookStorage;
 
 import java.util.Collection;
@@ -36,5 +35,9 @@ public class BookControllerImpl implements BookController {
     public Collection<Book> remove(Long id) {
         bookStorage.delete(id);
         return bookStorage.fetchAll();
+    }
+    @GetMapping("/{id}/campus/")
+    public Campus findBookCampus(@PathVariable Long id){
+        return bookStorage.fetchById(id).getCampus();
     }
 }
