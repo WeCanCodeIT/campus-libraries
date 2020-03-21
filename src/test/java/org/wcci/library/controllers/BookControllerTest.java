@@ -65,7 +65,7 @@ public class BookControllerTest {
     @Test
     public void fetchByIdEndpointReturnASpecificBook() throws Exception {
         when(bookStorage.fetchById(1L)).thenReturn(testBook);
-        mockMvc.perform(get("/api/books/1"))
+        mockMvc.perform(get("/api/books/1/"))
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                .andExpect(jsonPath("$.title", is("Testing In Spring")));

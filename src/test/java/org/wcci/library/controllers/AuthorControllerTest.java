@@ -67,7 +67,7 @@ public class AuthorControllerTest {
     @Test
     public void retrieveByIdEndpointFetchesAuthorById() throws Exception {
         when(authorStorage.fetchById(1L)).thenReturn(testAuthor);
-        mockMvc.perform(get("/api/authors/1"))
+        mockMvc.perform(get("/api/authors/1/"))
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                .andExpect(jsonPath("$.firstName", is("Joe")))

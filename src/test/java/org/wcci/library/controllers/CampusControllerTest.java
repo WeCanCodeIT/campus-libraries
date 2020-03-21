@@ -66,7 +66,7 @@ public class CampusControllerTest {
     public void fetchByIdEndpointReturnASpecificBook() throws Exception {
         when(campusStorage.fetchById(1L)).thenReturn(testCampus);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
-        mockMvc.perform(get("/api/campuses/1"))
+        mockMvc.perform(get("/api/campuses/1/"))
                .andExpect(status().isOk())
                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                .andExpect(jsonPath("$.location", is("Test Town")));
